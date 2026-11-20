@@ -1,3 +1,44 @@
-<p style="color:red">thích nghe nhạc.</p>
-<p style="font-family:Calibri">thích nghe nhạc.</p>
+[index+1,song.name,song.artist].forEach(value=>{
+   let cell=document.createElement("td");
+   cell.textContent=value;
+   row.appendChild(cell);
+  });
 
+  let cell=document.createElement("td");
+  let btn=document.createElement("button");
+  btn.textContent="▶ Phát";
+  btn.onclick=()=>playSong(song);
+  cell.appendChild(btn);
+  row.appendChild(cell);
+  table.appendChild(row);
+ });
+}
+
+function addSong(){
+ const name=document.getElementById("songName").value.trim();
+ const artist=document.getElementById("artist").value.trim();
+ const url=document.getElementById("songUrl").value.trim();
+
+ if(!name||!artist||!url){
+  alert("Vui lòng nhập đầy đủ thông tin!");
+  return;
+ }
+
+ try{
+  const parsed=new URL(url);
+  if(!["http:","https:"].includes(parsed.protocol))throw Error();
+  songs.push({name,artist,url:parsed.href});
+  renderTable();
+  document.getElementById("songName").value="";
+  document.getElementById("artist").value="";
+  document.getElementById("songUrl").value="";
+ }catch{
+  alert("Đường dẫn MP3 không hợp lệ!");
+ }
+}
+
+renderTable();
+</script>
+
+</body>
+</html>
